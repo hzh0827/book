@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+我就在这儿.那里也不会去的
+<input type="text" id="name">
+<input type="text" id="author">
+</body>
+</html>
+
+<script>
+    //创建 XMLHttpRequest 对象(此对象是ajax核心对象,是ajax技术的基石)
+    var xmlhttp;
+    if (window.XMLHttpRequest)
+    {
+        //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+        xmlhttp=new XMLHttpRequest();
+    }
+    else
+    {
+        // IE6, IE5 浏览器执行代码
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    //xmlhttp.open("get","../AjaxServlet?id=1&name=peijie",true);
+    //xmlhttp.send();
+
+    xmlhttp.open("post","../AjaxServlet",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("id=1&name=peijie")
+
+    //onreadystatechange这是一个事件
+    xmlhttp.onreadystatechange=function()
+    {
+        //用于处理服务器响应完成之后的动作
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            //xmlhttp.responseText此代码用于接受服务器响应该的数据
+
+            var jsonObj = JSON.parse(xmlhttp.responseText)//将json字符串转换成json对象
+            document.getElementById("name").value = jsonObj.name;
+            document.getElementById("author").value = jsonObj.author;
+        }
+    }
+</script>

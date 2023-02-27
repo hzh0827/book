@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.7.2.js"></script>
+    <script language="javascript" type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script>
+    <script>
+        $(function(){
+            page(1,"","","");
+
+            $("#mybut").click(function(){
+                $("#tid tr:gt(0)").remove();
+                page(1,$("#name").val(),$("#gender").val(),$("#joinDate").val())
+            });
+        })
+
+        function page(pageNo,name,gender,joinDate){
+            $.post("../EmpPageServlet","pageNo="+pageNo+"&name="+name+"&gender="+gender+"&joinDate="+joinDate,function(data){
+                for (let i = 0; i < data.empList.length; i++) {
+                    $("#tid").append("<tr><td>"+data.empList[i].name+"</td><td>"+data.empList[i].gender+"</td><td>"+data.empList[i].salary+"</td><td>"+data.empList[i].joinDate+"</td><td>"+data.empList[i].deptName+"</td></tr>")
+                }
+                $("#tid").append("<tr align='center'><td colspan='5'>" +
+                    "<a href='javascript:void(0)' id='up'>上一页</a>" +
+                    "<span>"+data.pageNo+"</span>/<span>"+data.pageTotal+"</span>" +
+                    "<a href='javascript:void(0)' id='down'>下一页</a>" +
+                    "<span>记录数:"+data.record+"</span></td></tr>")
+
+                $("#down").click(function (){
+                    if(data.pageNo < data.pageTotal){
+                        $("#tid tr:gt(0)").remove();
+                        page(data.pageNo+1,name,gender,joinDate);
+                    }
+                });
+
+                $("#up").click(function (){
+                    if(data.pageNo > 1 ){
+                        $("#tid tr:gt(0)").remove();
+                        page(data.pageNo-1,name,gender,joinDate);
+                    }
+                });
+            },"json");
+        }
+
+
+    </script>
+</head>
+<body>
+
+员工名:<input type="text" id="name">
+性别:<select id="gender">
+    <option value="">-请选择-</option>
+    <option value="男">男</option>
+    <option value="女">女</option>
+</select>
+入职时间:<input id="joinDate" type="text" onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd'})">
+<input type="button" value="查询" id="mybut">
+
+<hr/>
+<table id="tid" border="1">
+    <tr >
+        <th>姓名</th>
+        <th>性别</th>
+        <th>工资</th>
+        <th>入职日期</th>
+        <th>部门名称</th>
+    </tr>
+</table>
+</body>
+</html>

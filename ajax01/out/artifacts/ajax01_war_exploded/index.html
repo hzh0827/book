@@ -1,0 +1,56 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>$Title$</title>
+    <script>
+
+        //值有很多种形式,数字,字符串,数组,对象,对象数组
+        var jsonObj = {
+            "key1": 12, "key2": "abc", "key3": true,
+            "key4": [11, "arr", false],
+            "key5": {
+                "key5_1": 551,
+                "key5_2": "key5_2_value"
+            },
+
+            "key6": [{
+                "name": "小明", "pass": "111"
+            }, {
+                "name": "小虎", "pass": "123"
+            }, {
+                "name": "小李", "pass": "456"
+            }]
+        };
+
+
+
+
+        // for (let i = 0; i < jsonObj.key6.length; i++) {
+        //     alert(jsonObj.key6[i].name + "," + jsonObj.key6[i].pass)
+        // }
+
+
+        //alert(typeof(jsonObj));// object	json 就是一个对象
+        // alert(jsonObj.key1);//12
+        // alert(jsonObj.key2);// abc
+        // alert(jsonObj.key3);// true
+        // alert(jsonObj.key4);// 得到数组[11,"arr",false]
+        // json 中数组值的遍历
+        /* for(var i = 0; i < jsonObj.key4.length; i++) {
+              alert(jsonObj.key4[i]);
+          }*/
+        // alert(jsonObj.key5.key5_1);//551
+        // alert(jsonObj.key5.key5_2);//key5_2_value
+        //alert(jsonObj.key6);// 得到json 数组*/
+
+        // 取出来每一个元素都是json 对象
+        /* var jsonItem = jsonObj.key6[0];
+         // alert( jsonItem.key6_1_1 ); //6611
+         alert( jsonItem.key6_1_2 ); //key6_1_2_value*/
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

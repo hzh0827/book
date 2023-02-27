@@ -1,0 +1,35 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.7.2.js"></script>
+    <script>
+        $(function(){
+            $.post("../DeptServlet",null,function(data){
+                for (let i = 0; i < data.length; i++) {
+                    $("#dept").append("<option value='"+data[i].id+"'>"+data[i].name+"</option>")
+                }
+            },"json");
+
+            $("#dept").change(function(){
+                var mythis = this ;
+                $.get("../EmpServlet?deptid="+this.value,null,function(data){
+                    $(mythis).next("select").remove();
+                    if(data.length > 0) {
+                        var selectObj = $("<select></select>")
+                        for (let i = 0; i < data.length; i++) {
+                            selectObj.append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
+                        }
+                        $(mythis).after(selectObj);
+                    }
+                },"json");
+            })
+        })
+    </script>
+</head>
+<body>
+
+部门:<select id="dept"></select>
+
+</body>
+</html>

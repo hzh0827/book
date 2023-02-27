@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        //值有很多种形式,数字,字符串,数组,对象,对象数组
+        var jsonObj = {
+            "key1": 12, "key2": "abc", "key3": true,
+            "key4": [11, "arr", false],
+            "key5": {
+                "key5_1": 551,
+                "key5_2": "key5_2_value"
+            },
+
+            "key6": [{
+                "name": "小明", "pass": "111"
+            }, {
+                "name": "小虎", "pass": "123"
+            }, {
+                "name": "小李", "pass": "456"
+            }]
+        };
+        //json对象转换成json字符串
+        var jsonStr = JSON.stringify(jsonObj);
+        alert(jsonStr)
+        // 把json字符串。转换成为json 对象
+        var myJsonObj = JSON.parse(jsonStr);
+        alert(myJsonObj)
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
